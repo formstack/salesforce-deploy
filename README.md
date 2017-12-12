@@ -1,1 +1,1 @@
-Salesforce deployment script for docker
+Salesforce deployment script for docker deployment
