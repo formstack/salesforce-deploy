@@ -4,8 +4,10 @@ MAINTAINER Balinder Singh <bsbhinder@outlook.com>
 RUN apk update
 RUN apk add bash
 RUN apk add openjdk8
+RUN apk search jq
 RUN apk add nodejs
 RUN npm install -g grunt-cli
+RUN npm install -g sfdx-cli
 RUN apk add apache-ant --update-cache \
 	--repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
 	--allow-untrusted
