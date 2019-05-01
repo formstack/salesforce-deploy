@@ -4,7 +4,7 @@ MAINTAINER Balinder Singh <bsbhinder@outlook.com>
 RUN apk update
 RUN apk add bash
 RUN apk add openjdk8
-RUN apk search jq
+RUN apk add jq
 RUN apk add --update nodejs npm
 RUN npm install -g grunt-cli
 RUN npm install -g sfdx-cli
