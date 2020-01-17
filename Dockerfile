@@ -43,5 +43,5 @@ RUN curl https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckod
 	mv ./geckodriver /usr/local/bin/ && \
 	chmod a+x /usr/local/bin/geckodriver
 
-RUN ENV ANT_HOME /usr/share/java/apache-ant
-RUN ENV PATH $PATH:$ANT_HOME/bin
+ENV ANT_HOME /usr/share/java/apache-ant
+ENV PATH $PATH:$ANT_HOME/bin
