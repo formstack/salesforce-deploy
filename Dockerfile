@@ -1,32 +1,18 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-bionic AS build
 MAINTAINER Balinder Singh <bsbhinder@outlook.com>
-RUN apk update
-RUN apk add bash
-RUN apk add openjdk8
-RUN apk add jq
-RUN apk add --update nodejs npm
+RUN apt-get update \
+    && apt-get install -y bash openjdk8 jq apache-ant
+RUN apt-get update \
+    && apt-get install -y nodejs npm
+RUN echo "Node version:"
+RUN node -v
 RUN npm install -g grunt-cli
 RUN npm install -g sfdx-cli
 RUN echo "DOTNET version:"
 RUN dotnet --version
-RUN apk add chromium
-RUN apk add chromium-chromedriver
-RUN apk add apache-ant --update-cache \
-	--repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
-	--allow-untrusted
-RUN apk add --update curl && \
-    rm -rf /var/cache/apk/*
 
-# adding one more alpine repo (the testing) one in the reference repos so that we can add original firefox browser .
-# On main/community repos we don't have firefox browser but Firefox ESR which didn't work with our solution
-RUN \
-echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories && \
-echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
-RUN apk update && apk upgrade && \
-apk add firefox tar unzip xvfb && \
-rm -rf /var/cache/apk/*
+RUN apt-get install -y curl firefox tar unzip xvfb && \
+&& rm -rf /var/lib/apt/lists/*
 
 RUN \
 # Create firefox + xvfb runner (it is in-memory display server to run firefox in headless mode)
