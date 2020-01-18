@@ -1,17 +1,17 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-bionic AS build
 MAINTAINER Balinder Singh <bsbhinder@outlook.com>
 RUN apt-get update \
-    && apt-get install -y bash openjdk8 jq apache-ant
-RUN apt-get update \
-    && apt-get install -y nodejs npm
+    && apt-get install -y bash openjdk-8-jdk jq ant nodejs npm
 RUN echo "Node version:"
 RUN node -v
+RUN npm install -g npm
+RUN npm -v
 RUN npm install -g grunt-cli
 RUN npm install -g sfdx-cli
 RUN echo "DOTNET version:"
 RUN dotnet --version
 
-RUN apt-get install -y curl firefox tar unzip xvfb && \
+RUN apt-get install -y curl firefox tar unzip xvfb \
 && rm -rf /var/lib/apt/lists/*
 
 RUN \
