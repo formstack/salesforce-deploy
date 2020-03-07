@@ -11,9 +11,10 @@ RUN npm install -g sfdx-cli
 RUN echo "DOTNET version:"
 RUN dotnet --version
 
-RUN apt-get install -y curl firefox tar unzip xvfb \
+RUN apt-get install -y curl tar firefox unzip xvfb \
 && rm -rf /var/lib/apt/lists/*
 
+RUN firefox --version
 RUN \
 # Create firefox + xvfb runner (it is in-memory display server to run firefox in headless mode)
 mv /usr/bin/firefox /usr/bin/firefox-origin && \
@@ -24,8 +25,8 @@ killall Xvfb' > /usr/bin/firefox && \
 chmod +x /usr/bin/firefox
 
 # geckodriver (it is the driver for firefox)
-RUN curl https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz -O -L && ls && \
-	tar -zxvf geckodriver-v0.24.0-linux64.tar.gz && \
+RUN curl https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz -O -L && ls && \
+	tar -zxvf geckodriver-v0.26.0-linux64.tar.gz && \
 	mv ./geckodriver /usr/local/bin/ && \
 	chmod a+x /usr/local/bin/geckodriver
 
